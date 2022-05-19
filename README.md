@@ -1,6 +1,11 @@
 # ikub_2022
 Akademia IKUB kursi Python Prill 2022 - Qershor 2022
 
+# Database links
+- https://youtu.be/ABwD8IYByfk
+- https://youtu.be/ztHopE5Wnpc
+- https://www.guru99.com/database-design.html
+
 # Commands
 - Create new env
   - python -m venv ~/env
