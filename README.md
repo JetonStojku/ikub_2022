@@ -43,3 +43,5 @@ Akademia IKUB kursi Python Prill 2022 - Qershor 2022
   - https://www.django-rest-framework.org/api-guide/fields/
   - https://www.django-rest-framework.org/api-guide/status-codes/
   - https://www.django-rest-framework.org/api-guide/serializers/#modelserializer
+## Django 3
+  - https://www.django-rest-framework.org/api-guide/permissions/
