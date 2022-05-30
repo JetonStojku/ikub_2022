@@ -1,10 +1,7 @@
-# 1
 from rest_framework import serializers
-# 3
 from profiles_api import models
 
 
-# 1
 class HelloSerializer(serializers.Serializer):
     """Serializes a name field for testing out APIView"""
     name = serializers.CharField(max_length=10)
