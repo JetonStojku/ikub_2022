@@ -59,7 +59,6 @@ class HelloApiView(APIView):
         return Response({'method': 'DELETE'})
 
 
-# 2
 class HelloViewSet(viewsets.ViewSet):
     """Test API ViewSet"""
     serializer_class = serializers.HelloSerializer
@@ -163,4 +162,6 @@ class InvoiceItemViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user"""
-        serializer.save(price=self.product.price)
+        if serializer.is_valid():
+            price = serializer.validated_data.get('product').price
+            serializer.save(price=price)
