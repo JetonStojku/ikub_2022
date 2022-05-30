@@ -87,11 +87,7 @@ class Invoice(models.Model):
 
     @property
     def total(self):
-        # sum = 0
-        # for item in self.invoiceitem_set.all():
-        #     sum += item.total
-        # return sum
-        return self.invoiceitem_set.all().aggregate(total=Sum(F('quantity')*F('price')))
+        return self.invoiceitem_set.all().aggregate(total=Sum(F('quantity') * F('price')))
 
     def __str__(self):
         return f'{self.client} / {self.date}'
