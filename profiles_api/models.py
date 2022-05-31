@@ -82,7 +82,8 @@ class Product(models.Model):
 
 
 class Invoice(models.Model):
-    client = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    client = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
 
     @property
@@ -94,8 +95,10 @@ class Invoice(models.Model):
 
 
 class InvoiceItem(models.Model):
-    product = models.ForeignKey('profiles_api.Product', on_delete=models.CASCADE)
-    invoice = models.ForeignKey('profiles_api.Invoice', on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        'profiles_api.Product', on_delete=models.CASCADE)
+    invoice = models.ForeignKey(
+        'profiles_api.Invoice', on_delete=models.CASCADE)
     quantity = models.FloatField(default=0)
     price = models.FloatField(default=0)
 

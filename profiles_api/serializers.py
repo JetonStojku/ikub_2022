@@ -35,19 +35,27 @@ class ProfileFeedItemSerializer(serializers.ModelSerializer):
     """Serializes profile feed items"""
 
     class Meta:
+        """meta class"""
         model = models.ProfileFeedItem
         fields = ('id', 'user_profile', 'status_text', 'created_on')
         extra_kwargs = {'user_profile': {'read_only': True}}
 
 
 class ProductSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = models.Product
         fields = ('id', 'name', 'price', 'quantity')
 
+    def validate(self, data):
+        if data['quantity'] < 0:
+            raise serializers.ValidationError("Product quantity can't be negative")
+        return data
+
 
 class InvoiceSerializer(serializers.ModelSerializer):
     items = serializers.SerializerMethodField()
+    quantity = serializers.FloatField(validators=['check_positive'])
 
     def get_items(self, invoice):
         return InvoiceItemSerializer(invoice.invoiceitem_set.all(), many=True).data

@@ -142,10 +142,6 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = models.Product.objects.all()
     permission_classes = (IsAuthenticated,)
 
-    def perform_create(self, serializer):
-        """Sets the user profile to the logged in user"""
-        serializer.save(user_profile=self.request.user)
-
 
 class InvoiceViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
@@ -163,5 +159,18 @@ class InvoiceItemViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user"""
         if serializer.is_valid():
-            price = serializer.validated_data.get('product').price
-            serializer.save(price=price)
+            item = serializer.validated_data
+            product = item.get('product')
+            product.quantity -= item.get('quantity')
+            if product.quantity >= 0:
+                product.save()
+                serializer.save(price=product.price)
+            else:
+                return False
+
+    def perform_update(self, serializer):
+        item = serializer.validated_data
+        product = item.get('product')
+        product.quantity -= serializer.validated_data.get('quantity')
+        product.save()
+        serializer.save(price=product.price)
